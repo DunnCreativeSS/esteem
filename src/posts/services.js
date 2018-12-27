@@ -159,23 +159,19 @@ module.exports = function (app) {
         to: '=',
         length: '@'
       },
-      template: `
-                <div style="overflow:auto;width:15px">
-                  <div></div>
-                </div>
-            `,
+      template: '<div style="overflow:auto;width:15px"><div></div></div>',
       link: function(scope, element, attrs) {
         //set height of root div
         var root = angular.element(element.find('div')[0]);
         root.css('height', attrs.height);
 
         scope.$watch('length', function() {
-          //when array.length is changed we will change height of inner div 
+          //when array.length is changed we will change height of inner div
           //to correct scrolling presentation of parent div accordingly
           var height = (scope.length - attrs.limit) * attrs.sens + attrs.height * 1;
           angular.element(element.find('div')[1]).css('height', height);
 
-          //if we won't need scrolling anymore, we can hide it 
+          //if we won't need scrolling anymore, we can hide it
           //and shift scrolling to initial top position
           if (scope.length <= attrs.limit) {
             root[0].scrollTop = 0;
@@ -221,7 +217,7 @@ module.exports = function (app) {
           }
       };
   })
-  
+
   app.directive('fastRepeat', ['$compile', '$parse', '$animate', function ($compile, $parse, $animate) {
     'use strict';
     var $ = angular.element;
@@ -460,7 +456,7 @@ module.exports = function (app) {
 
 
                 element.parent().on('click', '[fast-repeat-id]',parentClickHandler);
-                
+
                 // Handle resizes
                 //
                 var onResize = function() {
@@ -469,7 +465,7 @@ module.exports = function (app) {
 
                 var jqWindow = $(window);
                 jqWindow.on('resize', onResize);
-                scope.$on('$destroy', function() { 
+                scope.$on('$destroy', function() {
                     jqWindow.off('resize', onResize);
                     element.parent().off('click', '[fast-repeat-id]', parentClickHandler);
                 });
@@ -506,7 +502,7 @@ module.exports = function (app) {
       }
 
       var x1 = inp.json_metadata.split('"image":');
-      
+
       if (x1 && x1.length>1){
         return "https://steemitimages.com/0x0/"+x1[1].split('"')[1];
       } else {
@@ -515,14 +511,14 @@ module.exports = function (app) {
           console.log(match);
           if (match && match.length>0)
             return match[0];
-          else*/ 
+          else*/
         //}
         if (inp.json_metadata.indexOf('thumbnail')>-1) {
           return JSON.parse(inp.json_metadata).thumbnail;
         }
         return 'img/noimage.png';
       }
-      
+
     }
   });
   app.filter('pkeys', function($rootScope){
@@ -551,13 +547,13 @@ module.exports = function (app) {
           } else {
             date = input;
           }
-          
+
           //refreshMillis= 6e4, //A minute
 
           // get difference between UTC and local time in milliseconds
-          
+
           //var timeZoneOffset = (new Date().getTimezoneOffset()) * 60000;
-          
+
           // convert local to UTC
           //console.log(timeZoneOffset);
 
@@ -594,7 +590,7 @@ module.exports = function (app) {
 
           prefix = strings.prefixAgo,
           suffix = strings.suffixAgo;
-          
+
           //console.log(timeZoneOffset);
 
           if (allowFuture) {
@@ -640,7 +636,7 @@ module.exports = function (app) {
 
       var urlRegex =/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
       var imgRegex = /(https?:\/\/.*\.(?:tiff?|jpe?g|gif|png|svg|ico))(.*)/gim;
-      
+
       var vimeoRegex = /(?:http:\/\/)?(?:www\.)?(?:vimeo\.com)\/(.+)/g;
 
 	    return function(textu, subpart) {
@@ -656,16 +652,16 @@ module.exports = function (app) {
 			  };
         if (textu.body || textu.comment) {
           var s = textu.body||textu.comment;
-          
+
           var texts = "";
-          
-          texts = marked(s, options);          
+
+          texts = marked(s, options);
 
           if (!$rootScope.$storage.download) {
-            texts = texts.replace(imgd, 'src="img/isimage.png" onclick="this.src=\'$1\'"');  
+            texts = texts.replace(imgd, 'src="img/isimage.png" onclick="this.src=\'$1\'"');
           }
           if (textu.json_metadata && textu.json_metadata.tags && textu.json_metadata.tags.indexOf('nsfw')>-1 && !$rootScope.$storage.nsfw) {
-            texts = texts.replace(img, 'img/nsfwimage.png');  
+            texts = texts.replace(img, 'img/nsfwimage.png');
           }
           //console.log('after '+texts);
 
@@ -686,7 +682,7 @@ module.exports = function (app) {
 	});
 
     app.filter('downvote', function($sce, $rootScope) {
-      
+
       return function(content) {
         //console.log(content);
         if (content.net_rshares < 0) {
@@ -769,18 +765,18 @@ module.exports = function (app) {
         if ($rootScope.$storage.chain == 'golos') {
           return input;
         } else {
-            var patt = new RegExp(regex);      
+            var patt = new RegExp(regex);
             var out = [];
             for (var i = 0; i < input.length; i++){
               //console.log(patt.test(input[i][field]));
               if(!patt.test(input[i][field]))
                 out.push(input[i]);
-            }      
+            }
           return out;
         }
       };
     });
-    
+
     app.filter('detransliterate', function(){
       // copypaste from https://gist.github.com/tamr/5fb00a1c6214f5cab4f6
       // (it have been modified: ий > iy and so on)
@@ -987,7 +983,7 @@ module.exports = function (app) {
         return (parseFloat(value)*$rootScope.$storage.currencyRate);
       }
     }
-  });  
+  });
 
   app.filter('hrefToJS', function ($sce, $sanitize) {
       return function (text) {
@@ -1105,7 +1101,7 @@ module.exports = function (app) {
               }
             }
           }
-          // if we're past the remove threshld, remove all previous elements and replace 
+          // if we're past the remove threshld, remove all previous elements and replace
           // lengthen the empty space div to fill the space they occupied
           if (options.removeThreshold && el.scrollTop > prevHeight + options.removeThreshold) {
             console.log('Removing previous elements');
@@ -1435,9 +1431,9 @@ module.exports = function (app) {
                       if (ngSrc && $rootScope.chain && $rootScope.chain == 'steem') {
                         element.attr('ng-src', ngSrc); // set default image  'img/noimage.png'
                       } else if ($rootScope.chain && $rootScope.chain == 'golos') {
-                        element.attr('ng-src', 'https://imgp.golos.io/0x0/'+ngSrc); // set default image  
+                        element.attr('ng-src', 'https://imgp.golos.io/0x0/'+ngSrc); // set default image
                       } else {
-                        element.attr('ng-src', 'img/noimage.png'); // set default image 
+                        element.attr('ng-src', 'img/noimage.png'); // set default image
                       }
                   });
                 }
@@ -1494,7 +1490,7 @@ module.exports = function (app) {
                    }).then(function(popover) {
                       $scope.tooltip = popover;
                    });
-                  
+
                   $ionicPopover.fromTemplateUrl('popoverSliderr.html', {
                       scope: $scope
                   }).then(function(popover) {
@@ -1593,20 +1589,20 @@ module.exports = function (app) {
                                 po.push(v);
                               }
                             });
-                            
+
                             comment.comments = po;
                             comment.showChildren = true;
                             $rootScope.fetching = false;
 
                             $scope.$applyAsync();
                           });
-                         
+
                         }
                       }
                         //$rootScope.$broadcast('update:content');
                     //$rootScope.$broadcast('hide:loading');
                   };
-                  
+
                   $scope.upvotePost = function(post) {
                     $rootScope.votePost(post, 'upvote', 'update:content');
                   };
@@ -1807,7 +1803,7 @@ module.exports = function (app) {
                     return (Math.random()+1).toString(16).substring(2);
                   }
                   $scope.reply = function (xx) {
-                    
+
                     var wif = $rootScope.user.password
                     ? window.steem.auth.toWif($rootScope.user.username, $rootScope.user.password, 'posting')
                     : $rootScope.user.privatePostingKey;
@@ -1819,7 +1815,7 @@ module.exports = function (app) {
                           var t = new Date();
                           var timeformat = t.getFullYear().toString()+(t.getMonth()+1).toString()+t.getDate().toString()+"t"+t.getHours().toString()+t.getMinutes().toString()+t.getSeconds().toString()+t.getMilliseconds().toString()+"z";
                           console.log($scope.post.json_metadata);
-                          var json = {tags: angular.fromJson($scope.post.json_metadata).tags[0] || ["esteem"], app: 'esteem/'+$rootScope.$storage.appversion, format: 'markdown+html', community: 'esteem' };                              
+                          var json = {tags: angular.fromJson($scope.post.json_metadata).tags[0] || ["esteem"], app: 'esteem/'+$rootScope.$storage.appversion, format: 'markdown+html', community: 'esteem' };
                           var operations_array = [];
 
                           operations_array = [
@@ -1834,15 +1830,14 @@ module.exports = function (app) {
                             }],
                             ['comment_options', {
                               allow_curation_rewards: true,
-                              allow_votes: true,
                               author: $rootScope.user.username,
-                              permlink: "re-"+$scope.post.author.replace(/\./g, "")+"-"+timeformat,  
+                              permlink: "re-"+$scope.post.author.replace(/\./g, "")+"-"+timeformat,
                               max_accepted_payout: "1000000.000 "+$rootScope.$storage.platformdunit,
                               percent_steem_dollars: 10000,
                               extensions: $rootScope.$storage.chain == 'golos'?[]:[[0, { "beneficiaries": [{ "account":"hodlorbust", "weight":1500 }] }]]
                             }]
                             ];
-                          
+
                           window.steem.broadcast.send({ operations: operations_array, extensions: [] }, { posting: wif }, function(err, result) {
                             //console.log(err, result);
                             $scope.replying = false;
@@ -1858,7 +1853,7 @@ module.exports = function (app) {
                               $scope.$evalAsync(function( $scope ) {
                                 $rootScope.showMessage($filter('translate')('SUCCESS'), $filter('translate')('COMMENT_SUBMITTED'));
                                 //$rootScope.$broadcast('hide:loading');
-                                //$rootScope.$emit("update:content");  
+                                //$rootScope.$emit("update:content");
                                 $rootScope.$broadcast('hide:loading');
                               });
                               //}, 1);
@@ -1892,7 +1887,7 @@ module.exports = function (app) {
                               json_metadata: $scope.post.json_metadata
                             }]
                             ];
-                          
+
                           window.steem.broadcast.send({ operations: operations_array, extensions: [] }, { posting: wif }, function(err, result) {
                             //console.log(err, result);
                             $scope.replying = false;
@@ -1908,7 +1903,7 @@ module.exports = function (app) {
                                 $scope.$evalAsync(function( $scope ) {
                                   $rootScope.showMessage($filter('translate')('SUCCESS'), $filter('translate')('COMMENT_SUBMITTED'));
                                   $rootScope.$broadcast('hide:loading');
-                                  //$rootScope.$emit("update:content");  
+                                  //$rootScope.$emit("update:content");
                                 });
                                 //}, 1);
                               }
@@ -1954,7 +1949,7 @@ module.exports = function (app) {
                                   $rootScope.showAlert($filter('translate')('ERROR'), $filter('translate')('BROADCAST_ERROR')+" "+message)
                                 } else {
                                   $rootScope.showMessage($filter('translate')('SUCCESS'), $filter('translate')('DELETED_COMMENT'));
-                                  //$rootScope.$emit("update:content");                                
+                                  //$rootScope.$emit("update:content");
                                 }
                                 $rootScope.$broadcast('hide:loading');
                               });
@@ -2042,7 +2037,7 @@ module.exports = function (app) {
             };
             $ionicPlatform.ready(function() {
               //API_END_POINT+"/api/upload"
-              
+
                 $cordovaFileTransfer.upload('https://img.esteem.ws/backend.php', imageURI, uploadOptions).then(function(result) {
                     // Let the user know the upload is completed
                     $ionicLoading.show({template : $filter('translate')('UPLOAD_COMPLETED'), duration: 1000});
@@ -2091,7 +2086,7 @@ module.exports = function (app) {
 
     const md = new window.remarkable({html: true, breaks: true, linkify: false});
 
-    const postSummary = (postBody, length) => {
+    const postSummary = function (postBody, length) {
       if (!postBody) {
         return '';
       }
@@ -2113,9 +2108,7 @@ module.exports = function (app) {
     };
 
     app.filter('postSummary', function ($sce) {
-        return (postBody, length = 200) => {
-          return $sce.trustAsHtml(postSummary(postBody, length));
-        }
+          return $sce.trustAsHtml(postSummary(postBody, 200));
     });
 
 
@@ -2373,18 +2366,16 @@ module.exports = function (app) {
       if (text.match(users)){
         var exist = text.match(users);
         //console.log(exist)
-        out = text.replace(users, '<a href="#/app/profile/$3">$&</a>');  
+        out = text.replace(users, '<a href="#/app/profile/$3">$&</a>');
       } else {
         out = text;
       }
       var existt = out.match(tags);
       if(existt) {
         //console.log(existt);
-        out = out.replace(tags, '<a href="#/app/posts/$3">$&</a>');  
+        out = out.replace(tags, '<a href="#/app/posts/$3">$&</a>');
       }
 
       return out;
     };
 }
-
-
