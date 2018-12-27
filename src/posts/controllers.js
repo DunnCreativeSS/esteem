@@ -194,7 +194,7 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope, $s
     $ionicPlatform.ready(function() {
 
       if (type === 'invites' && window.cordova) {
-        window.cordova.plugins.firebase.dynamiclinks.sendInvitation({
+       /* window.cordova.plugins.firebase.dynamiclinks.sendInvitation({
             deepLink: link,
             title: subject,
             message: message,
@@ -203,7 +203,7 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope, $s
           //console.log(res);
         }, function(err){
           //console.log(err);
-        });
+        }); */
       } else if (type === 'share' && window.cordova) {
         $cordovaSocialSharing.share(message, subject, file, link) // Share via native share sheet
         .then(function(result) {
@@ -2143,10 +2143,11 @@ app.controller('PostsCtrl', function($scope, $rootScope, $state, $ionicPopup, $i
 
       var xyz = camelCase("get_discussions_by_"+type) + "Async";
       //window.steem.api.getDiscussionsBy
+      console.log(xyz);
       window.steem.api[xyz](params, function(err, response) {
 
         if (response) {
-
+          console.log(response.length);
           //$scope.$evalAsync(function($scope){
             if (response.length <= 1) {
               $scope.error = true;
@@ -2155,7 +2156,9 @@ app.controller('PostsCtrl', function($scope, $rootScope, $state, $ionicPopup, $i
               if ($rootScope.$storage.view !== 'compact') {
                 //response[i].json_metadata = response[i].json_metadata?angular.fromJson(response[i].json_metadata):response[i].json_metadata;
               }
+
               var permlink = response[i].permlink;
+              console.log(permlink);
               if (!$scope.ifExists(permlink)) {
                 //var user = $rootScope.$storage.user || undefined;
                 if ($rootScope.user) {
@@ -3412,10 +3415,10 @@ app.controller('WelcomeCtrl', function($scope, $http, $ionicSlideBoxDelegate, $i
   $scope.nextSlide = function(){
     $scope.slider.slideNext();
   }
+APIs.getWelcome().then(function(res){
 
-  APIs.getWelcome().then(function(res){
-    $scope.slides = res.data;
-  });
+      $scope.slides = res.data;
+});
 
   $scope.$on("$ionicSlides.sliderInitialized", function(event, data){
     // data.slider is the instance of Swiper
@@ -4699,7 +4702,7 @@ app.controller('ExchangeCtrl', function($scope, $stateParams, $rootScope, $filte
     var asks = aggregateOrders(asksArray);
     // Insert a final entry to make sure the chart is centered properly
     asks.push([asks[asks.length - 1][0] * 4, asks[asks.length - 1][1]]);
-    
+
     return {bids: bids, asks: asks};
   }
 

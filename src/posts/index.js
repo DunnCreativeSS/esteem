@@ -1,3 +1,7 @@
+console.log('index.js');
+
+var fs = require('fs');
+
 var app = angular.module('esteem', [
 	'ionic',
 	'ngStorage',
@@ -25,7 +29,7 @@ localStorage.steemId = "00000000000000000000000000000000000000000000000000000000
 
 Buffer = require('buffer').Buffer;
 
-window.steem = require('steem');
+window.steem = require('@steemit/steem-js');
 window.remarkable = require('remarkable');
 window.diff_match_patch = require('diff-match-patch');
 window.getSymbol = require('currency-symbol-map');
@@ -69,13 +73,12 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $s
   })
 
   .state('app.welcome', {
-    url: '/posts/:tags/:renew',
-    params: {renew: true},
+    url: '/welcome',
     views: {
       'menuContent': {
-        //templateUrl: 'templates/posts.html',
-        template: fs.readFileSync(__dirname + '/templates/posts.html', 'utf8'),
-        controller: 'PostsCtrl'
+        //templateUrl: 'templates/settings.html'
+        template: fs.readFileSync(__dirname + '/templates/welcome.html', 'utf8'),
+        controller: 'WelcomeCtrl'
       }
     }
   })
@@ -269,66 +272,66 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $s
 
   $ionicConfigProvider.tabs.style("standard"); //Makes them all look the same across all OS
 
-  $translateProvider.translations('en', require('./locales/ready/en.json')); //English
-  $translateProvider.translations('en-US', require('./locales/ready/en-US.json')); //English
-  $translateProvider.translations('ru-RU', require('./locales/ready/ru-RU.json')); //Russian
-  $translateProvider.translations('de-DE', require('./locales/ready/de-DE.json')); //German
-  $translateProvider.translations('fr-FR', require('./locales/ready/fr-FR.json')); //French
-  $translateProvider.translations('es-ES', require('./locales/ready/es-ES.json')); //Spanish
-  $translateProvider.translations('el-GR', require('./locales/ready/el-GR.json')); //Greek
-  $translateProvider.translations('bg-BG', require('./locales/ready/bg-BG.json')); //Bulgarian
-  $translateProvider.translations('nl-NL', require('./locales/ready/nl-NL.json')); //Dutch
-  $translateProvider.translations('hu-HU', require('./locales/ready/hu-HU.json')); //Hungarian
-  $translateProvider.translations('cs-CZ', require('./locales/ready/cs-CZ.json')); //Czech
-  $translateProvider.translations('he-IL', require('./locales/ready/he-IL.json')); //Hebrew
-  $translateProvider.translations('pl-PL', require('./locales/ready/pl-PL.json')); //Polish
-  $translateProvider.translations('pt-PT', require('./locales/ready/pt-PT.json')); //Portuguese
-  $translateProvider.translations('pt-BR', require('./locales/ready/pt-BR.json')); //Portuguese Brazil
-  $translateProvider.translations('id-ID', require('./locales/ready/id-ID.json')); //Indonesian
-  $translateProvider.translations('zh-TW', require('./locales/ready/zh-TW.json')); //Chinese traditional
-  $translateProvider.translations('zh-CN', require('./locales/ready/zh-CN.json')); //Chinese simplified
-  $translateProvider.translations('dolan', require('./locales/ready/dolan.json')); //Dolan
-  $translateProvider.translations('sv-SE', require('./locales/ready/sv-SE.json')); //Swedish
-  $translateProvider.translations('uk-UA', require('./locales/ready/uk-UA.json')); //Ukrainian
-  $translateProvider.translations('ms-MY', require('./locales/ready/ms-MY.json')); //Malay
-  $translateProvider.translations('hr-HR', require('./locales/ready/hr-HR.json')); //Croatian
-  $translateProvider.translations('fa-IR', require('./locales/ready/fa-IR.json')); //Persian
-  $translateProvider.translations('it-IT', require('./locales/ready/it-IT.json')); //Italian
-  $translateProvider.translations('fil-PH', require('./locales/ready/fil-PH.json')); //Filipino
-  $translateProvider.translations('ar-SA', require('./locales/ready/ar-SA.json')); //Arabic
-  $translateProvider.translations('lt-LT', require('./locales/ready/lt-LT.json')); //Lithuanian
-  $translateProvider.translations('lv-LV', require('./locales/ready/lv-LV.json')); //Latvian
-  $translateProvider.translations('ja-JP', require('./locales/ready/ja-JP.json')); //Japanese
-  $translateProvider.translations('bs-BA', require('./locales/ready/bs-BA.json')); //Bosnian
-  $translateProvider.translations('ko-KR', require('./locales/ready/ko-KR.json')); //Korean
-  $translateProvider.translations('fi-FI', require('./locales/ready/fi-FI.json')); //Finnish
-  $translateProvider.translations('ur-PK', require('./locales/ready/ur-PK.json')); //Urdu Pakistani
-  $translateProvider.translations('hi-IN', require('./locales/ready/hi-IN.json')); //Hindi
-  $translateProvider.translations('th-TH', require('./locales/ready/th-TH.json')); //Thai
-  $translateProvider.translations('en-GB', require('./locales/ready/en-GB.json')); //en-GB
-  $translateProvider.translations('en-CA', require('./locales/ready/en-CA.json')); //en-CA
-  $translateProvider.translations('sq-AL', require('./locales/ready/sq-AL.json')); //Albanian
-  $translateProvider.translations('bn-BD', require('./locales/ready/bn-BD.json')); //Bengali
-  $translateProvider.translations('ca-ES', require('./locales/ready/ca-ES.json')); //Catalan
-  $translateProvider.translations('ne-NP', require('./locales/ready/ne-NP.json')); //Nepali
-  $translateProvider.translations('no-NO', require('./locales/ready/no-NO.json')); //Norwegian
-  $translateProvider.translations('sk-SK', require('./locales/ready/sk-SK.json')); //Slovak
-  $translateProvider.translations('ta-IN', require('./locales/ready/ta-IN.json')); //Tamil
+  $translateProvider.translations('en', require('./locales/ready/en')); //English
+  $translateProvider.translations('en-US', require('./locales/ready/en-US')); //English
+  $translateProvider.translations('ru-RU', require('./locales/ready/ru-RU')); //Russian
+  $translateProvider.translations('de-DE', require('./locales/ready/de-DE')); //German
+  $translateProvider.translations('fr-FR', require('./locales/ready/fr-FR')); //French
+  $translateProvider.translations('es-ES', require('./locales/ready/es-ES')); //Spanish
+  $translateProvider.translations('el-GR', require('./locales/ready/el-GR')); //Greek
+  $translateProvider.translations('bg-BG', require('./locales/ready/bg-BG')); //Bulgarian
+  $translateProvider.translations('nl-NL', require('./locales/ready/nl-NL')); //Dutch
+  $translateProvider.translations('hu-HU', require('./locales/ready/hu-HU')); //Hungarian
+  $translateProvider.translations('cs-CZ', require('./locales/ready/cs-CZ')); //Czech
+  $translateProvider.translations('he-IL', require('./locales/ready/he-IL')); //Hebrew
+  $translateProvider.translations('pl-PL', require('./locales/ready/pl-PL')); //Polish
+  $translateProvider.translations('pt-PT', require('./locales/ready/pt-PT')); //Portuguese
+  $translateProvider.translations('pt-BR', require('./locales/ready/pt-BR')); //Portuguese Brazil
+  $translateProvider.translations('id-ID', require('./locales/ready/id-ID')); //Indonesian
+  $translateProvider.translations('zh-TW', require('./locales/ready/zh-TW')); //Chinese traditional
+  $translateProvider.translations('zh-CN', require('./locales/ready/zh-CN')); //Chinese simplified
+  $translateProvider.translations('dolan', require('./locales/ready/dolan')); //Dolan
+  $translateProvider.translations('sv-SE', require('./locales/ready/sv-SE')); //Swedish
+  $translateProvider.translations('uk-UA', require('./locales/ready/uk-UA')); //Ukrainian
+  $translateProvider.translations('ms-MY', require('./locales/ready/ms-MY')); //Malay
+  $translateProvider.translations('hr-HR', require('./locales/ready/hr-HR')); //Croatian
+  $translateProvider.translations('fa-IR', require('./locales/ready/fa-IR')); //Persian
+  $translateProvider.translations('it-IT', require('./locales/ready/it-IT')); //Italian
+  $translateProvider.translations('fil-PH', require('./locales/ready/fil-PH')); //Filipino
+  $translateProvider.translations('ar-SA', require('./locales/ready/ar-SA')); //Arabic
+  $translateProvider.translations('lt-LT', require('./locales/ready/lt-LT')); //Lithuanian
+  $translateProvider.translations('lv-LV', require('./locales/ready/lv-LV')); //Latvian
+  $translateProvider.translations('ja-JP', require('./locales/ready/ja-JP')); //Japanese
+  $translateProvider.translations('bs-BA', require('./locales/ready/bs-BA')); //Bosnian
+  $translateProvider.translations('ko-KR', require('./locales/ready/ko-KR')); //Korean
+  $translateProvider.translations('fi-FI', require('./locales/ready/fi-FI')); //Finnish
+  $translateProvider.translations('ur-PK', require('./locales/ready/ur-PK')); //Urdu Pakistani
+  $translateProvider.translations('hi-IN', require('./locales/ready/hi-IN')); //Hindi
+  $translateProvider.translations('th-TH', require('./locales/ready/th-TH')); //Thai
+  $translateProvider.translations('en-GB', require('./locales/ready/en-GB')); //en-GB
+  $translateProvider.translations('en-CA', require('./locales/ready/en-CA')); //en-CA
+  $translateProvider.translations('sq-AL', require('./locales/ready/sq-AL')); //Albanian
+  $translateProvider.translations('bn-BD', require('./locales/ready/bn-BD')); //Bengali
+  $translateProvider.translations('ca-ES', require('./locales/ready/ca-ES')); //Catalan
+  $translateProvider.translations('ne-NP', require('./locales/ready/ne-NP')); //Nepali
+  $translateProvider.translations('no-NO', require('./locales/ready/no-NO')); //Norwegian
+  $translateProvider.translations('sk-SK', require('./locales/ready/sk-SK')); //Slovak
+  $translateProvider.translations('ta-IN', require('./locales/ready/ta-IN')); //Tamil
 
-  $translateProvider.translations('yo-NG', require('./locales/ready/yo-NG.json')); //Yoruba
-  $translateProvider.translations('vi-VN', require('./locales/ready/vi-VN.json')); //Vietnamese
-  $translateProvider.translations('ac-ace', require('./locales/ready/ac-ace.json')); //Acehnese
-  $translateProvider.translations('sk-SK', require('./locales/ready/sk-SK.json')); //Slovenian
-  $translateProvider.translations('si-LK', require('./locales/ready/si-LK.json')); //Sinhala
-  $translateProvider.translations('ka-GE', require('./locales/ready/ka-GE.json')); //Georgian
-  $translateProvider.translations('en-AU', require('./locales/ready/en-AU.json')); //English Australia
-  $translateProvider.translations('ro-RO', require('./locales/ready/ro-RO.json')); //Romanian
-  $translateProvider.translations('pa-IN', require('./locales/ready/pa-IN.json')); //Punjabi
-  $translateProvider.translations('da-DK', require('./locales/ready/da-DK.json')); //Danish
-  $translateProvider.translations('ha-HG', require('./locales/ready/ha-HG.json')); //Hausa
-  $translateProvider.translations('ceb-PH', require('./locales/ready/ceb-PH.json')); //Cebuana
-  $translateProvider.translations('as-IN', require('./locales/ready/as-IN.json')); //Assamese
-  $translateProvider.translations('tr-TR', require('./locales/ready/tr-TR.json')); //Turkish
+  $translateProvider.translations('yo-NG', require('./locales/ready/yo-NG')); //Yoruba
+  $translateProvider.translations('vi-VN', require('./locales/ready/vi-VN')); //Vietnamese
+  $translateProvider.translations('ac-ace', require('./locales/ready/ac-ace')); //Acehnese
+  $translateProvider.translations('sk-SK', require('./locales/ready/sk-SK')); //Slovenian
+  $translateProvider.translations('si-LK', require('./locales/ready/si-LK')); //Sinhala
+  $translateProvider.translations('ka-GE', require('./locales/ready/ka-GE')); //Georgian
+  $translateProvider.translations('en-AU', require('./locales/ready/en-AU')); //English Australia
+  $translateProvider.translations('ro-RO', require('./locales/ready/ro-RO')); //Romanian
+  $translateProvider.translations('pa-IN', require('./locales/ready/pa-IN')); //Punjabi
+  $translateProvider.translations('da-DK', require('./locales/ready/da-DK')); //Danish
+  $translateProvider.translations('ha-HG', require('./locales/ready/ha-HG')); //Hausa
+  $translateProvider.translations('ceb-PH', require('./locales/ready/ceb-PH')); //Cebuana
+  $translateProvider.translations('as-IN', require('./locales/ready/as-IN')); //Assamese
+  $translateProvider.translations('tr-TR', require('./locales/ready/tr-TR')); //Turkish
 
 
   $translateProvider.useSanitizeValueStrategy(null);
@@ -360,8 +363,8 @@ app.run(function($ionicPlatform, $rootScope, $localStorage, $interval, $ionicPop
       StatusBar.styleLightContent();
     }
 
-    window.steem.config.set('websocket',localStorage.socketUrl);
-    window.steem.api.setOptions({ url: "ws://188.166.99.136:8090" });
+    //window.steem.config.set('websocket',localStorage.socketUrl);
+    window.steem.api.setOptions({ url: localStorage.socketUrl });
     console.log('run ready');
 
 
@@ -419,23 +422,21 @@ app.run(function($ionicPlatform, $rootScope, $localStorage, $interval, $ionicPop
     }
 
     if (!$rootScope.$storage.welcome) {
-      $state.go('app.posts');
-
-   // $scope.fetchPosts();
+      //$state.go('app.welcome');
     }
 
     if (!$rootScope.$storage.socketgolos) {
       $rootScope.$storage.socketgolos = "https://ws.golos.io/";
     }
     if (!$rootScope.$storage.socketsteem) {
-      $rootScope.$storage.socketsteem = "ws://rpc.kennybll.com:8090";
+      $rootScope.$storage.socketsteem = "https://api.steemit.com";
     }
 
     window.steem.config.set('chain_id',localStorage[$rootScope.$storage.chain+"Id"]);
     if ($rootScope.$storage.chain == 'golos') {
       window.steem.config.set('address_prefix','GLS');
     } else {
-      window.steem.config.set('address_prefix','WLS');
+      window.steem.config.set('address_prefix','STM');
     }
 
     //window.ejs.ChainConfig.setChainId(localStorage[$rootScope.$storage.chain+"Id"]);
@@ -459,13 +460,13 @@ app.run(function($ionicPlatform, $rootScope, $localStorage, $interval, $ionicPop
     } else {
       $translate.use($rootScope.$storage.language);
     }
-    $rootScope.$storage.platformname = "steem";
-    $rootScope.$storage.platformpower = "WhaleStake";
-    $rootScope.$storage.platformsunit = "steem";
-    $rootScope.$storage.platformdollar = "steem Dollar";
-    $rootScope.$storage.platformdunit = "WLS";
-    $rootScope.$storage.platformpunit = "WS";
-    $rootScope.$storage.platformlunit = "WLS";
+    $rootScope.$storage.platformname = "Steem";
+    $rootScope.$storage.platformpower = "Steem Power";
+    $rootScope.$storage.platformsunit = "Steem";
+    $rootScope.$storage.platformdollar = "Steem Dollar";
+    $rootScope.$storage.platformdunit = "SBD";
+    $rootScope.$storage.platformpunit = "SP";
+    $rootScope.$storage.platformlunit = "STEEM";
     $rootScope.$storage.chain = "steem";
     $rootScope.$storage.currency = "usd";
     $rootScope.$storage.currencyRate = 1;
@@ -545,7 +546,7 @@ app.run(function($ionicPlatform, $rootScope, $localStorage, $interval, $ionicPop
       $rootScope.$storage.voteWeight = 10000;
     }
 
-    $rootScope.$storage.chains = [{id:'steem', name: 'steem'}, {id:'golos', name: 'Golos'}];
+    $rootScope.$storage.chains = [{id:'steem', name: 'Steem'}, {id:'golos', name: 'Golos'}];
 
     if (!$rootScope.$storage.currencies) {
       $rootScope.$storage.currencies = [
@@ -640,7 +641,7 @@ app.run(function($ionicPlatform, $rootScope, $localStorage, $interval, $ionicPop
       });
       if (msg.indexOf("error")>-1) {
         //window.Api.initPromise.then(function(response) {
-        $rootScope.log(msg);
+        $rootScope.log("broadcast error");
         //});
       }
       return alertPopup/*.then(function(res) {
@@ -694,14 +695,14 @@ app.run(function($ionicPlatform, $rootScope, $localStorage, $interval, $ionicPop
         $rootScope.$broadcast("pin:check");
       }
 
-      window.steem.config.set('websocket',localStorage.socketUrl);
-      window.steem.api.setOptions({ url: "ws://188.166.99.136:8090" });
+      //window.steem.config.set('websocket',localStorage.socketUrl);
+      window.steem.api.setOptions({ url: localStorage.socketUrl });
       window.steem.config.set('chain_id',localStorage[$rootScope.$storage.chain+"Id"]);
 
       if ($rootScope.$storage.chain == 'golos') {
         window.steem.config.set('address_prefix','GLS');
       } else {
-        window.steem.config.set('address_prefix','WLS');
+        window.steem.config.set('address_prefix','STM');
       }
 
       if (window.cordova) {
@@ -1045,24 +1046,18 @@ app.run(function($ionicPlatform, $rootScope, $localStorage, $interval, $ionicPop
         $rootScope.showAlert($filter('translate')('WARNING'), $filter('translate')('LOGIN_TO_X'));
       }
     };
-$rootScope.isWitnessVoted2 = function() {
-      if ($rootScope.user && $rootScope.user.witness_votes.indexOf("dcrazy")>-1) {
-        return true;
-      } else {
-        return false;
-      }
-    };
+
     $rootScope.isWitnessVoted = function() {
-      if ($rootScope.user && $rootScope.user.witness_votes.indexOf("swapbit")>-1) {
+      if ($rootScope.user && $rootScope.user.witness_votes.indexOf("good-karma")>-1) {
         return true;
       } else {
         return false;
       }
     };
-    $rootScope.voteWitness = function(witness) {
+    $rootScope.voteWitness = function() {
         var confirmPopup = $ionicPopup.confirm({
           title: $filter('translate')('ARE_YOU_SURE'),
-          template: $filter('translate')('VOTE_FOR_WITNESS')+" @" + witness
+          template: $filter('translate')('VOTE_FOR_WITNESS')+" @good-karma"
         });
         confirmPopup.then(function(res) {
           if(res) {
@@ -1075,14 +1070,14 @@ $rootScope.isWitnessVoted2 = function() {
                   ? window.steem.auth.toWif($rootScope.user.username, $rootScope.user.password, 'active')
                   : $rootScope.user.privateActiveKey;
 
-                window.steem.broadcast.accountWitnessVote(wif, $rootScope.user.username, witness, true, function(err, result) {
+                window.steem.broadcast.accountWitnessVote(wif, $rootScope.user.username, "good-karma", true, function(err, result) {
                   //console.log(err, result);
                   if (err) {
                     var message = err.message?(err.message.split(":")[2]?err.message.split(":")[2].split('.')[0]:err.message.split(":")[0]):err;
                     $rootScope.showAlert($filter('translate')('ERROR'), $filter('translate')('BROADCAST_ERROR')+" "+message)
                   } else {
                     //$scope.refreshFollowers();
-                    $rootScope.showMessage($filter('translate')('SUCCESS'),$filter('translate')('VOTED_FOR_WITNESS')+' @'+ witness);
+                    $rootScope.showMessage($filter('translate')('SUCCESS'),$filter('translate')('VOTED_FOR_WITNESS')+' @good-karma');
                     $rootScope.$broadcast('refreshLocalUserData');
                   }
                 });
@@ -1152,10 +1147,10 @@ $rootScope.isWitnessVoted2 = function() {
 
     setTimeout(function() {
     //$rootScope.$evalAsync(function( $rootScope ) {
-      window.steem.api.getFeed('dcrazy', 0, 100, function(err, rr) {
-        console.log(err, rr);
+      window.steem.api.getFeedHistoryAsync(function(err, rr) {
+        //console.log(err, rr);
         if (rr) {
-          $rootScope.$storage.base = rr[0];
+          $rootScope.$storage.base = rr.current_median_history.base.split(" ")[0];
         }
 
         window.steem.api.getDynamicGlobalPropertiesAsync(function(err, r) {
@@ -1177,14 +1172,14 @@ $rootScope.isWitnessVoted2 = function() {
 
       console.log(localStorage.socketUrl, $rootScope.$storage.chain);
 
-      window.steem.config.set('websocket',localStorage.socketUrl);
-      window.steem.api.setOptions({ url: "ws://188.166.99.136:8090" });
+      //window.steem.config.set('websocket',localStorage.socketUrl);
+      window.steem.api.setOptions({ url: localStorage.socketUrl });
 
       window.steem.config.set('chain_id',localStorage[$rootScope.$storage.chain+"Id"]);
       if ($rootScope.$storage.chain == 'golos') {
         window.steem.config.set('address_prefix','GLS');
       } else {
-        window.steem.config.set('address_prefix','WLS');
+        window.steem.config.set('address_prefix','STM');
       }
       window.steem.api.stop();
 
@@ -1195,14 +1190,14 @@ $rootScope.isWitnessVoted2 = function() {
         }
       });
 
-      $rootScope.$storage.platformname = "steem";
-      $rootScope.$storage.platformpower = "WhaleStake";
-      $rootScope.$storage.platformsunit = "steem";
-      $rootScope.$storage.platformdollar = "steem Dollar";
-      $rootScope.$storage.platformdunit = "WLS";
+      $rootScope.$storage.platformname = "Steem";
+      $rootScope.$storage.platformpower = "Steem Power";
+      $rootScope.$storage.platformsunit = "Steem";
+      $rootScope.$storage.platformdollar = "Steem Dollar";
+      $rootScope.$storage.platformdunit = "SBD";
       $rootScope.$storage.platformpunit = "SP";
-      $rootScope.$storage.platformlunit = "WLS";
-      $rootScope.$storage.socketsteem = "ws://rpc.kennybll.com:8090";
+      $rootScope.$storage.platformlunit = "STEEM";
+      $rootScope.$storage.socketsteem = "https://api.steemit.com";
       $rootScope.chain = $rootScope.$storage.chain;
 
       if (!$rootScope.$$phase) {
@@ -1258,15 +1253,13 @@ $rootScope.isWitnessVoted2 = function() {
         $rootScope.$apply();
       }
     });
-    console.log('cordova cordova ' + window.cordova);
     if (window.cordova) {
-	console.log('ionic ionic ' + ionic.Platform.isWindowsPhone());
       if (!ionic.Platform.isWindowsPhone()) {
         if (ionic.Platform.isIOS() || ionic.Platform.isIPad()) {
           //window.FirebasePlugin.grantPermission();
         }
 
-        /* window.cordova.plugins.firebase.dynamiclinks.onDynamicLink(function(data) {
+        window.cordova.plugins.firebase.dynamiclinks.onDynamicLink(function(data) {
 
           console.log("Dynamic link click with data: "+ angular.toJson(data));
 
@@ -1293,157 +1286,12 @@ $rootScope.isWitnessVoted2 = function() {
             });
           }
           //$rootScope.showMessage("title", angular.toJson(data));
-        }); */
-	var pushya = 0;
-	pushya = setInterval(function(){
-	if(PushNotification){
-AppRate.preferences = {
-  displayAppName: 'WhalesApp',
-  usesUntilPrompt: 3,
-  promptAgainForEachNewVersion: true,
-  inAppReview: true,
-  storeAppURL: {
-    ios: '<my_app_id>',
-    android: 'market://details?id=com.steem.ewhale',
-    windows: 'ms-windows-store://pdp/?ProductId=<the apps Store ID>',
-    blackberry: 'appworld://content/[App Id]/',
-    windows8: 'ms-windows-store:Review?name=<the Package Family Name of the application>'
-  },
-  customLocale: {
-    title: "Would you mind rating %@?",
-    message: "It won’t take more than a minute and helps to promote our app. Thanks for your support!",
-    cancelButtonLabel: "No, Thanks",
-    laterButtonLabel: "Remind Me Later",
-    rateButtonLabel: "Rate It Now",
-    yesButtonLabel: "Yes!",
-    noButtonLabel: "Not really",
-    appRatePromptTitle: 'Do you like using %@',
-    feedbackPromptTitle: 'Mind giving us some feedback?',
-  },
-  callbacks: {
-    handleNegativeFeedback: function(){
-      window.open('mailto:jarettrsdunn1999@gmail.com','_system');
-    },
-    onRateDialogShow: function(callback){
-      callback(1) // cause immediate click on 'Rate Now' button
-    },
-    onButtonClicked: function(buttonIndex){
-      console.log("onButtonClicked -> " + buttonIndex);
-    }
-  }
-};
+        });
 
-AppRate.promptForRating(false);
-
-	clearInterval(pushya);
- app.push = PushNotification.init({
-     "android": {
-         "senderID": "ewhale-a4430"
-     },
-     "ios": {
-       "sound": true,
-       "vibration": true,
-       "badge": true
-     },
-     "windows": {}
- });
-
- app.push.on('registration', function(data) {
-     console.log("registration event: " + data.registrationId);
-     //document.getElementById("regId").innerHTML = data.registrationId;
-     var oldRegId = localStorage.getItem('registrationId');
-     if (oldRegId !== data.registrationId) {
-         // Save new registration ID
-         localStorage.setItem('registrationId', data.registrationId);
-         // Post registrationId to your app server as the value has changed
-     }
-let token = data.registrationId;
-$rootScope.log("device "+token);
-	    console.log("device " + token);
-            $rootScope.$storage.deviceid = token;
-            if ($rootScope.user) {
-              APIs.saveSubscription(token, $rootScope.user.username, { device: ionic.Platform.platform() }).then(function(res){
-                $rootScope.log(angular.toJson(res));
-              });
-            } else {
-              APIs.saveSubscription(token, "", { device: ionic.Platform.platform() }).then(function(res){
-                $rootScope.log(angular.toJson(res));
-              });
-            }
-
- });
- app.push.on('notification', function(data) {
-$rootScope.log(angular.toJson(data));
-     var push = '<div class="row">' +
-       '<div class="col s12 m6">' +
-       '  <div class="card darken-1">' +
-       '    <div class="card-content black-text">' +
-       '      <span class="card-title black-text">' + data.title + '</span>' +
-       '      <p>' + data.message + '</p>' +
-       '      <p>' + data.additionalData.foreground + '</p>' +
-       '    </div>' +
-       '  </div>' +
-       ' </div>' +
-       '</div>';
-
-            if(data.wasTapped){
-              //Notification was received on device tray and tapped by the user.
-              if (data.author && data.permlink) {
-                if (!$rootScope.$storage.pincode) {
-
-                  var alertPopup = $ionicPopup.confirm({
-                    title: data.title,
-                    template: data.body +" "+ $filter('translate')('OPENING_POST') + " ?! "
-                  });
-
-                  alertPopup.then(function(res) {
-                    $rootScope.log('Thank you for seeing alert from tray');
-                    if (res) {
-                      if (data.chain !== $rootScope.$storage.chain) {
-                        $rootScope.$storage.chain = data.chain;
-                        $rootScope.$broadcast('changedChain');
-                        $rootScope.$emit('changedCurrency', {currency: $rootScope.$storage.currency, enforce: true});
-                      }
-                      setTimeout(function() {
-                        $rootScope.getContentAndOpen({author:data.author, permlink:data.permlink});
-                      }, 300);
-                    } else {
-                      $rootScope.log("not sure to open alert");
-                    }
-                  });
-
-                } else {
-                  $rootScope.$storage.notifData = {title:data.title, body: data.body, author: data.author, permlink: data.permlink};
-                  $rootScope.pinenabled = true;
-                }
-              }
-            } else{
-              //Notification was received in foreground. Maybe the user needs to be notified.
-              //alert( JSON.stringify(data) );
-              if (data.author && data.permlink) {
-                $rootScope.showMessage(data.title, data.message);
-              } else {
-                $rootScope.showMessage(data.title, data.message);
-              }
-            }
-
-});
- app.push.on('error', function(e) {
-     console.log("push error = " + e.message);
- });
-}
-	}, 1000);
-	var fcmya = 0;
-	fcmya = setInterval(function(){
-        //console.log('fcm...');
-	/*
-	if (FCMPlugin) {
-
-	  clearInterval(fcmya);
+        if (FCMPlugin) {
           FCMPlugin.getToken(function(token){
             // save this server-side and use it to push notifications to this device
             $rootScope.log("device "+token);
-	    console.log("device " + token);
             $rootScope.$storage.deviceid = token;
             if ($rootScope.user) {
               APIs.saveSubscription(token, $rootScope.user.username, { device: ionic.Platform.platform() }).then(function(res){
@@ -1514,10 +1362,7 @@ $rootScope.log(angular.toJson(data));
               }
             }
           });
-
         }
-*/
-}, 1000);
       }
 
     }

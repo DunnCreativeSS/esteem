@@ -119,7 +119,8 @@ module.exports = function (app) {
         return $http.get("https://storage.googleapis.com/esteem/public_nodes.json",{headers:{'Cache-Control': 'no-cache'}});
       },
       getWelcome: function() {
-        return $http.get(API_END_POINT+"/media/welcome.json",{headers:{'Cache-Control': 'no-cache'}});
+          var fs = require('fs');
+        return fs.readFileSync(__dirname + '/welcome.json', 'utf8');
       }
 		};
 	}])
@@ -2108,7 +2109,9 @@ module.exports = function (app) {
     };
 
     app.filter('postSummary', function ($sce) {
+      return(postBody, length = 200) => {
           return $sce.trustAsHtml(postSummary(postBody, 200));
+        }
     });
 
 
