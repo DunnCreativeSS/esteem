@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="10600" id="com.netsolutions.esteem" ios-CFBundleVersion="1.6.0" version="1.6.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-versionCode="10600" id="com.blockchainsolutions.esteem" ios-CFBundleVersion="1.6.0" version="1.6.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>eSteem</name>
     <description>
         eSteem Mobile App
     </description>
-    <author email="info@esteem.ws" href="http://esteem.ws/">
-      Feruz M
+    <author email="jarettrsdunn@gmail.com">
+      Jarett Dunn
     </author>
     <content src="index.html" />
     <access origin="*" />
@@ -107,8 +107,6 @@
     </platform>
     <icon src="resources/android/icon/drawable-xhdpi-icon.png" />
     <allow-navigation href="http://192.168.88.254:8101" />
-    <engine name="android" spec="^6.2.3" />
-    <engine name="ios" spec="^4.4.0" />
     <plugin name="cordova-plugin-android-permissions" spec="^0.11.0" />
     <plugin name="cordova-plugin-app-version" spec="^0.1.9" />
     <plugin name="cordova-plugin-camera" spec="^2.4.1">
@@ -152,4 +150,8 @@
         <variable name="CAMERA_USAGE_DESCRIPTION" value="Scan QR code for Username" />
     </plugin>
     <plugin name="phonegap-plugin-mobile-accessibility" spec="git+https://github.com/phonegap/phonegap-mobile-accessibility.git" />
+    <plugin name="cordova-plugin-cocoapod-support" spec="^1.6.0" />
+    <plugin name="cordova-plugin-apprate" spec="^1.4.0" />
+    <engine name="android" spec="^6.2.3" />
+    <engine name="ios" spec="^4.5.5" />
 </widget>

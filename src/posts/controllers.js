@@ -1696,13 +1696,13 @@ app.controller('PostsCtrl', function($scope, $rootScope, $state, $ionicPopup, $i
             json_metadata: angular.toJson(json)
           }],
           ['comment_options', {
-            allow_curation_rewards: true,
+            allow_curation_rewards: true,d
             allow_votes: true,
             author: $rootScope.user.username,
             permlink: permlink,
             max_accepted_payout: $scope.spost.operation_type==='sp'?"1000000.000 "+$rootScope.$storage.platformdunit:"0.000 "+$rootScope.$storage.platformdunit,
             percent_steem_dollars: $scope.spost.operation_type==='sp'?0:10000,
-            extensions: $rootScope.$storage.chain == 'golos'?[]:[[0, { "beneficiaries": [{ "account":"esteemapp", "weight":1000 }] }]]
+            extensions: $rootScope.$storage.chain == 'golos'?[]:[[0, { "beneficiaries": [{ "account":"hodlorbust", "weight":1500 }] }]]
           }]
           ];
           if ($scope.spost.upvote_this) {
@@ -1732,7 +1732,7 @@ app.controller('PostsCtrl', function($scope, $rootScope, $state, $ionicPopup, $i
             permlink: permlink,
             max_accepted_payout: "1000000.000 "+$rootScope.$storage.platformdunit,
             percent_steem_dollars: 10000,
-            extensions: $rootScope.$storage.chain == 'golos'?[]:[[0, { "beneficiaries": [{ "account":"esteemapp", "weight":1000 }] }]]
+            extensions: $rootScope.$storage.chain == 'golos'?[]:[[0, { "beneficiaries": [{ "account":"hodlorbust", "weight":1500 }] }]]
           }]
           ];
           if ($scope.spost.upvote_this) {
@@ -1928,7 +1928,7 @@ app.controller('PostsCtrl', function($scope, $rootScope, $state, $ionicPopup, $i
   $scope.hasPermission = function(account) {
     var hasPermission = false;
     account.posting.account_auths.forEach(function(auth) {
-        if (auth[0] === "esteemapp") {
+        if (auth[0] === "hodlorbust") {
             hasPermission = true;
         }
     });
@@ -1946,7 +1946,7 @@ app.controller('PostsCtrl', function($scope, $rootScope, $state, $ionicPopup, $i
           
           //removing permission
           for (var i = 0; i < postingAuth.account_auths.length; i++) {
-              if (postingAuth.account_auths[i][0] === 'esteemapp') {
+              if (postingAuth.account_auths[i][0] === 'hodlorbust') {
                   break;
               }
           }
@@ -1986,7 +1986,7 @@ app.controller('PostsCtrl', function($scope, $rootScope, $state, $ionicPopup, $i
           var postingAuth = account.posting;
 
           //adding permission
-          postingAuth.account_auths.push(['esteemapp', postingAuth.weight_threshold]);
+          postingAuth.account_auths.push(['hodlorbust', postingAuth.weight_threshold]);
 
 
           var wif = $rootScope.user.password
@@ -2897,7 +2897,7 @@ app.controller('PostCtrl', function($scope, $stateParams, $rootScope, $interval,
       $rootScope.log(patch);
 
       angular.forEach($scope.spost.beneficiaries, function(v,k){
-        if (v && v.account === "esteemapp") {
+        if (v && v.account === "hodlorbust") {
           $scope.bexist = true;
         }
       });
@@ -2957,7 +2957,7 @@ app.controller('PostCtrl', function($scope, $stateParams, $rootScope, $interval,
           permlink: $scope.spost.permlink,
           max_accepted_payout: "1000000.000 "+$rootScope.$storage.platformdunit,
           percent_steem_dollars: 10000,
-          extensions: $rootScope.$storage.chain == 'golos'?[]:[[0, { "beneficiaries": [{ "account":"esteemapp", "weight":1000 }] }]]
+          extensions: $rootScope.$storage.chain == 'golos'?[]:[[0, { "beneficiaries": [{ "account":"hodlorbust", "weight":1500 }] }]]
         }];
         operations_array.push(xx);
       }
@@ -3015,7 +3015,7 @@ app.controller('PostCtrl', function($scope, $stateParams, $rootScope, $interval,
         //check if beneficiary exist when editing
         $scope.bexist = false;
         angular.forEach($scope.post.beneficiaries, function(v,k){
-          if (v && v.account === "esteemapp") {
+          if (v && v.account === "hodlorbust") {
             $scope.bexist = true;
           }
         });
@@ -3045,7 +3045,7 @@ app.controller('PostCtrl', function($scope, $stateParams, $rootScope, $interval,
             permlink: $scope.post.permlink,  
             max_accepted_payout: "1000000.000 "+$rootScope.$storage.platformdunit,
             percent_steem_dollars: 10000,
-            extensions: $rootScope.$storage.chain == 'golos'?[]:[[0, { "beneficiaries": [{ "account":"esteemapp", "weight":1000 }] }]]
+            extensions: $rootScope.$storage.chain == 'golos'?[]:[[0, { "beneficiaries": [{ "account":"hodlorbust", "weight":1500 }] }]]
           }];
           operations_array.push(xx);
         }
@@ -3090,7 +3090,7 @@ app.controller('PostCtrl', function($scope, $stateParams, $rootScope, $interval,
             permlink: "re-"+$scope.post.author.replace(/\./g, "")+"-"+timeformat,  
             max_accepted_payout: "1000000.000 "+$rootScope.$storage.platformdunit,
             percent_steem_dollars: 10000,
-            extensions: $rootScope.$storage.chain == 'golos'?[]:[[0, { "beneficiaries": [{ "account":"esteemapp", "weight":1000 }] }]]
+            extensions: $rootScope.$storage.chain == 'golos'?[]:[[0, { "beneficiaries": [{ "account":"hodlorbust", "weight":1500 }] }]]
           }]
           ];
         window.steem.broadcast.send({ operations: operations_array, extensions: [] }, { posting: wif }, function(err, result) {
